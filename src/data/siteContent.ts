@@ -27,6 +27,8 @@ export type GalleryItem = {
   label: string;
 };
 
+export const imagePath = (fileName: string) => `${import.meta.env.BASE_URL}images/${fileName}`;
+
 export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Menu", href: "/menu" },
@@ -93,13 +95,13 @@ export const menuGroups: MenuGroup[] = [
 
 export const menuPhotoFeatures: MenuPhotoFeature[] = [
   {
-    src: "/images/ryco-restaurantji-photo-mobile.jpg",
+    src: imagePath("ryco-restaurantji-photo-mobile.jpg"),
     alt: "Acai bowl and coffee at Ryco Coffee House",
     label: "Bowls / coffee",
     note: "Fruit bowls, cold drinks and coffee for sit-in mornings or a quick takeaway stop."
   },
   {
-    src: "/images/ryco-restaurantguru-photo.jpg",
+    src: imagePath("ryco-restaurantguru-photo.jpg"),
     alt: "RYCO storefront and cafe entrance in Moy",
     label: "Killyman Street",
     note: "The blue storefront marks Ryco's coffee counter in the centre of Moy."
@@ -108,17 +110,17 @@ export const menuPhotoFeatures: MenuPhotoFeature[] = [
 
 export const galleryItems: GalleryItem[] = [
   {
-    src: "/images/ryco-restaurantguru-photo.jpg",
+    src: imagePath("ryco-restaurantguru-photo.jpg"),
     alt: "RYCO Coffee House blue storefront on Killyman Street in Moy",
     label: "30 Killyman Street"
   },
   {
-    src: "/images/ryco-restaurantji-photo-mobile.jpg",
+    src: imagePath("ryco-restaurantji-photo-mobile.jpg"),
     alt: "RYCO collage with acai bowl, storefront, and coffee",
     label: "Coffee / Acai / Moy"
   },
   {
-    src: "/images/ryco-restaurantji-photo.jpg",
+    src: imagePath("ryco-restaurantji-photo.jpg"),
     alt: "RYCO wide collage with acai bowl, latte, and cafe exterior",
     label: "House favourites"
   }

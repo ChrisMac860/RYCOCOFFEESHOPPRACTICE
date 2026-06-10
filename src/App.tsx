@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type CSSProperties, type MouseEvent, type ReactNode } from "react";
 import { Link, NavLink, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import {
   business,
   galleryItems,
+  imagePath,
   menuGroups,
   menuPhotoFeatures,
   navItems,
@@ -101,7 +102,7 @@ function App() {
         onMenuToggle={() => setMenuOpen((open) => !open)}
         onNavigate={() => setMenuOpen(false)}
       />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         {isDesktop ? (
           <DesktopScrollPage />
         ) : (
@@ -129,15 +130,21 @@ type HeaderProps = {
 
 function Header({ isDesktop, menuOpen, onMenuToggle, onNavigate }: HeaderProps) {
   const location = useLocation();
+  const handleSkipToMain = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    const main = document.getElementById("main");
+    main?.focus({ preventScroll: true });
+    main?.scrollIntoView({ block: "start" });
+  };
 
   return (
     <header className="site-header">
-      <a className="skip-link" href="#main">
+      <a className="skip-link" href="#main" onClick={handleSkipToMain}>
         Skip to content
       </a>
       <div className="header-grid">
         <Link className="brand-mark" to={isDesktop ? "/#home" : "/"} onClick={onNavigate} aria-label="RYCO home">
-          <img src="/images/ryco-official-logo-cropped.png" alt="" />
+          <img src={imagePath("ryco-official-logo-cropped.png")} alt="" />
         </Link>
         {!isDesktop && (
           <button
@@ -216,7 +223,7 @@ function DesktopHomeSection() {
         </div>
       </div>
       <figure className="desktop-photo desktop-home-photo" tabIndex={0}>
-        <img src="/images/ryco-restaurantguru-photo.jpg" alt="RYCO Coffee House blue storefront in Moy" />
+        <img src={imagePath("ryco-restaurantguru-photo.jpg")} alt="RYCO Coffee House blue storefront in Moy" />
         <figcaption>Open Wednesday to Monday</figcaption>
       </figure>
       <aside className="hours-panel desktop-hours" data-testid="opening-hours">
@@ -306,7 +313,7 @@ function DesktopVisitSection() {
         <HoursList />
       </div>
       <figure className="desktop-photo desktop-visit-photo">
-        <img src="/images/ryco-restaurantguru-photo.jpg" alt="RYCO blue storefront on Killyman Street" />
+        <img src={imagePath("ryco-restaurantguru-photo.jpg")} alt="RYCO blue storefront on Killyman Street" />
       </figure>
     </section>
   );
@@ -380,7 +387,7 @@ function HomePage() {
           </div>
         </div>
         <figure className="hero-image-block" tabIndex={0}>
-          <img src="/images/ryco-restaurantguru-photo.jpg" alt="RYCO Coffee House blue storefront in Moy" />
+          <img src={imagePath("ryco-restaurantguru-photo.jpg")} alt="RYCO Coffee House blue storefront in Moy" />
           <figcaption>Open Wednesday to Monday</figcaption>
         </figure>
         <aside className="hours-panel" data-testid="opening-hours">
@@ -602,7 +609,7 @@ function ImageStatement() {
   return (
     <section className="image-statement page-grid" data-animate>
       <figure>
-        <img src="/images/ryco-restaurantji-photo.jpg" alt="RYCO acai bowl, coffee, and storefront collage" />
+        <img src={imagePath("ryco-restaurantji-photo.jpg")} alt="RYCO acai bowl, coffee, and storefront collage" />
       </figure>
       <div>
         <p className="mono-line">Coffee / Acai / Takeaway</p>

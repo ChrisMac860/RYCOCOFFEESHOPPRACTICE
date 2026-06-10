@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { business, navItems } from "./data/siteContent";
+import { business, imagePath, navItems } from "./data/siteContent";
 
 function setMediaQuery(matches: boolean) {
   Object.defineProperty(window, "matchMedia", {
@@ -94,11 +94,11 @@ describe("Ryco Coffee House site", () => {
     const photoRail = screen.getByRole("region", { name: /menu photos/i });
     expect(within(photoRail).getByRole("img", { name: /acai bowl and coffee/i })).toHaveAttribute(
       "src",
-      "/images/ryco-restaurantji-photo-mobile.jpg"
+      imagePath("ryco-restaurantji-photo-mobile.jpg")
     );
     expect(within(photoRail).getByRole("img", { name: /ryco storefront/i })).toHaveAttribute(
       "src",
-      "/images/ryco-restaurantguru-photo.jpg"
+      imagePath("ryco-restaurantguru-photo.jpg")
     );
     expect(screen.queryByText(/public photos/i)).not.toBeInTheDocument();
   });
