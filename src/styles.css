@@ -614,6 +614,9 @@ button {
 }
 
 .gallery-item {
+  display: grid;
+  align-content: start;
+  gap: 8px;
   margin: 0;
   border-top: 1px solid var(--ink);
   animation: rowIn 420ms ease both;
@@ -621,6 +624,9 @@ button {
 }
 
 .gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
   aspect-ratio: 4 / 5;
 }
 
@@ -630,7 +636,11 @@ button {
 }
 
 .gallery-item figcaption {
-  padding-top: 8px;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0 0 2px;
+  background: var(--paper);
 }
 
 .contact-actions {
