@@ -255,7 +255,14 @@ function DesktopMenuSection() {
           <article key={group.title}>
             <p className="mono-line">{String(index + 1).padStart(2, "0")}</p>
             <h3>{group.title}</h3>
-            <p>{group.note}</p>
+            <ul className="desktop-menu-prices">
+              {group.items.map((item) => (
+                <li key={item.name}>
+                  <span>{item.name}</span>
+                  <span>{item.price}</span>
+                </li>
+              ))}
+            </ul>
           </article>
         ))}
       </div>
@@ -595,7 +602,10 @@ function MenuGrid() {
           <h2>{group.title}</h2>
           <ul>
             {group.items.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item.name}>
+                <span>{item.name}</span>
+                <span className="menu-item-price">{item.price}</span>
+              </li>
             ))}
           </ul>
           <p>{group.note}</p>

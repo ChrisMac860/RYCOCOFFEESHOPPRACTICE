@@ -8,9 +8,14 @@ export type OpeningHour = {
   time: string;
 };
 
+export type MenuItem = {
+  name: string;
+  price: string;
+};
+
 export type MenuGroup = {
   title: string;
-  items: string[];
+  items: MenuItem[];
   note: string;
 };
 
@@ -60,35 +65,65 @@ export const openingHours: OpeningHour[] = [
   { day: "Sunday", time: "9am-3pm" }
 ];
 
+// NOTE: prices below are market-estimate placeholders (see pricing report).
+// Replace with RYCO's real prices before going live.
 export const menuGroups: MenuGroup[] = [
   {
     title: "Coffee",
-    items: ["Espresso", "Latte", "Cortado", "Flat white", "Iced coffee"],
+    items: [
+      { name: "Espresso", price: "£2.20" },
+      { name: "Americano", price: "£2.80" },
+      { name: "Cortado", price: "£3.10" },
+      { name: "Flat white", price: "£3.30" },
+      { name: "Latte", price: "£3.20" },
+      { name: "Cappuccino", price: "£3.20" },
+      { name: "Iced coffee", price: "£3.80" }
+    ],
     note: "Freshly made for sit-in, takeaway, and the morning coffee run."
   },
   {
     title: "Acai bowls",
-    items: ["Fruit", "Coconut", "Granola", "Nut toppings", "Chocolate pieces"],
+    items: [
+      { name: "Regular bowl", price: "£6.95" },
+      { name: "Large bowl", price: "£8.50" },
+      { name: "Extra topping", price: "£0.80" }
+    ],
     note: "Fruit, granola, coconut and richer toppings layered into a bright breakfast bowl."
   },
   {
     title: "Smoothies",
-    items: ["Fruit blends", "Cold refreshers", "Seasonal specials"],
+    items: [
+      { name: "Fruit blend", price: "£4.50" },
+      { name: "Cold refresher", price: "£4.50" },
+      { name: "Seasonal special", price: "£4.95" }
+    ],
     note: "Cold fruit blends for a lighter stop on Killyman Street."
   },
   {
     title: "Traybakes",
-    items: ["Cookie pie", "Brownies", "Weekly counter bakes"],
+    items: [
+      { name: "Traybake slice", price: "£2.80" },
+      { name: "Brownie", price: "£3.20" },
+      { name: "Cookie pie", price: "£3.20" },
+      { name: "Scone, jam & butter", price: "£2.80" }
+    ],
     note: "Counter treats for coffee breaks and takeaway orders."
   },
   {
     title: "Toasties",
-    items: ["Hot sandwiches", "Lunch options", "Takeaway-friendly"],
+    items: [
+      { name: "Toastie", price: "£4.95" },
+      { name: "Loaded panini", price: "£6.50" },
+      { name: "Toastie & soup", price: "£8.50" }
+    ],
     note: "Hot lunch staples served through the day."
   },
   {
     title: "Overnight oats",
-    items: ["Granola pots", "Breakfast pots", "Fruit toppings"],
+    items: [
+      { name: "Overnight oats pot", price: "£3.95" },
+      { name: "Granola & yoghurt pot", price: "£3.95" }
+    ],
     note: "Ready-to-go breakfast pots with granola, fruit and easy takeaway portions."
   }
 ];

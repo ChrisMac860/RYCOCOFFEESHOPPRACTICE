@@ -538,19 +538,27 @@ button {
 }
 
 .menu-item ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
+  display: grid;
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .menu-item li {
-  min-height: 34px;
-  display: inline-flex;
-  align-items: center;
+  min-height: 40px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
   border-bottom: 1px solid var(--line);
+}
+
+.menu-item-price {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .menu-item p {
@@ -1178,9 +1186,34 @@ button {
   .desktop-menu-list {
     grid-column: 2 / 8;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 28px;
     align-self: end;
+  }
+
+  .desktop-menu-prices {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .desktop-menu-prices li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 5px 0;
+    border-top: 1px solid var(--line);
+    font-size: 0.92rem;
+    line-height: 1.25;
+  }
+
+  .desktop-menu-prices li span:last-child {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 
   .desktop-menu-list article {
