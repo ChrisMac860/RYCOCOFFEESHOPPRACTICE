@@ -4,6 +4,7 @@ import {
   business,
   galleryItems,
   imagePath,
+  menuAllergenNote,
   menuGroups,
   menuPhotoFeatures,
   navItems,
@@ -50,6 +51,74 @@ function useIsDesktop() {
   }, []);
 
   return isDesktop;
+}
+
+const weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+function parseClockToken(token: string): number | null {
+  const match = token.trim().toLowerCase().match(/^(\d{1,2})(?::(\d{2}))?\s*(am|pm)$/);
+  if (!match) {
+    return null;
+  }
+  let hours = parseInt(match[1], 10);
+  const minutes = match[2] ? parseInt(match[2], 10) : 0;
+  if (match[3] === "pm" && hours !== 12) {
+    hours += 12;
+  }
+  if (match[3] === "am" && hours === 12) {
+    hours = 0;
+  }
+  return hours * 60 + minutes;
+}
+
+function getOpenStatus(now: Date): { open: boolean; label: string } {
+  const todayName = weekdayNames[now.getDay()];
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+  const today = openingHours.find((entry) => entry.day === todayName);
+
+  if (today && today.time !== "Closed") {
+    const [openToken, closeToken] = today.time.split("-");
+    const opensAt = parseClockToken(openToken);
+    const closesAt = parseClockToken(closeToken);
+    if (opensAt !== null && closesAt !== null) {
+      if (nowMinutes >= opensAt && nowMinutes < closesAt) {
+        return { open: true, label: `Open now · until ${closeToken.trim()}` };
+      }
+      if (nowMinutes < opensAt) {
+        return { open: false, label: `Opens today at ${openToken.trim()}` };
+      }
+    }
+  }
+
+  for (let offset = 1; offset <= 7; offset += 1) {
+    const dayName = weekdayNames[(now.getDay() + offset) % 7];
+    const entry = openingHours.find((item) => item.day === dayName);
+    if (entry && entry.time !== "Closed") {
+      const openToken = entry.time.split("-")[0].trim();
+      const when = offset === 1 ? "tomorrow" : dayName;
+      return { open: false, label: `Closed · opens ${when} at ${openToken}` };
+    }
+  }
+
+  return { open: false, label: "Closed" };
+}
+
+function OpenStatus() {
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(new Date()), 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const { open, label } = getOpenStatus(now);
+
+  return (
+    <p className={open ? "open-status is-open" : "open-status"}>
+      <span className="open-dot" aria-hidden="true" />
+      {label}
+    </p>
+  );
 }
 
 function App() {
@@ -221,6 +290,7 @@ function DesktopHomeSection() {
             Visit
           </Link>
         </div>
+        <OpenStatus />
       </div>
       <figure className="desktop-photo desktop-home-photo" tabIndex={0}>
         <img src={imagePath("ryco-restaurantguru-photo.jpg")} alt="RYCO Coffee House blue storefront in Moy" />
@@ -266,6 +336,7 @@ function DesktopMenuSection() {
           </article>
         ))}
       </div>
+      <p className="menu-allergen desktop-menu-allergen">{menuAllergenNote}</p>
     </section>
   );
 }
@@ -392,6 +463,7 @@ function HomePage() {
               Directions
             </a>
           </div>
+          <OpenStatus />
         </div>
         <figure className="hero-image-block" tabIndex={0}>
           <img src={imagePath("ryco-restaurantguru-photo.jpg")} alt="RYCO Coffee House blue storefront in Moy" />
@@ -422,6 +494,7 @@ function MenuPage() {
     >
       <MenuPhotoRail items={menuPhotoFeatures} />
       <MenuGrid />
+      <p className="menu-allergen">{menuAllergenNote}</p>
     </PageFrame>
   );
 }

@@ -161,6 +161,9 @@ export const galleryItems: GalleryItem[] = [
   }
 ];
 
+export const menuAllergenNote =
+  "Allergies? Please ask our team before ordering — we're happy to talk you through ingredients.";
+
 export const sourceNotes = [
   "Facebook and Instagram public profiles",
   "Restaurant Guru menu listing",

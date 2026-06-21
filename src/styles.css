@@ -227,6 +227,42 @@ button {
   font-size: 0.74rem;
 }
 
+@media (max-width: 719px) {
+  .site-nav {
+    grid-template-columns: 1fr;
+    counter-reset: navnum;
+  }
+
+  .site-nav.is-open {
+    max-height: 560px;
+  }
+
+  .site-nav a {
+    gap: 16px;
+    min-height: 60px;
+    border-bottom: 1px solid var(--ink);
+    font-size: clamp(1.55rem, 8.5vw, 2.15rem);
+    font-weight: 760;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  .site-nav a::before {
+    counter-increment: navnum;
+    content: counter(navnum, decimal-leading-zero);
+    align-self: center;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .site-nav a.active,
+  .site-nav a.active::before {
+    color: var(--teal);
+  }
+}
+
 .page-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -287,6 +323,42 @@ button {
 .text-action.muted {
   background: transparent;
   color: var(--ink);
+}
+
+.open-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 18px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.open-dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.open-status.is-open {
+  color: var(--teal-dark);
+}
+
+.open-status.is-open .open-dot {
+  background: #1f9d57;
+  box-shadow: 0 0 0 3px rgba(31, 157, 87, 0.18);
+}
+
+.menu-allergen {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 calc(var(--gutter) + var(--safe-right)) clamp(48px, 10vw, 96px) calc(var(--gutter) + var(--safe-left));
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
 .hero-image-block {
@@ -647,8 +719,11 @@ button {
   position: relative;
   z-index: 1;
   margin: 0;
-  padding: 0 0 2px;
+  padding: 10px 0 4px;
   background: var(--paper);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .contact-actions {
@@ -773,15 +848,11 @@ button {
   }
 
   .hero-image-block img {
-    filter: grayscale(1) contrast(1.04);
-    transition:
-      filter 650ms ease,
-      transform 650ms ease;
+    transition: transform 650ms ease;
   }
 
   .hero-image-block:focus-visible img,
   .hero-image-block:hover img {
-    filter: grayscale(0) contrast(1);
     transform: scale(1.018);
   }
 }
@@ -1039,7 +1110,7 @@ button {
 
 @media (min-width: 900px) {
   .desktop-scroll-page {
-    --desktop-max: min(1500px, calc(100vw - 96px));
+    --desktop-max: min(1240px, calc(100vw - 96px));
   }
 
   .desktop-scroll-page .page-grid,
@@ -1048,11 +1119,11 @@ button {
   }
 
   .desktop-section {
-    min-height: calc(100svh - 79px);
-    align-items: center;
+    min-height: 0;
+    align-items: start;
     gap: clamp(18px, 1.5vw, 28px);
-    padding-top: clamp(28px, 4vh, 54px);
-    padding-bottom: clamp(28px, 4vh, 54px);
+    padding-top: clamp(60px, 9vh, 116px);
+    padding-bottom: clamp(60px, 9vh, 116px);
     border-top: 1px solid var(--line);
     scroll-margin-top: 92px;
   }
@@ -1168,7 +1239,7 @@ button {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
-    align-self: stretch;
+    align-self: start;
   }
 
   .desktop-menu-photos .desktop-photo:first-child {
@@ -1188,7 +1259,7 @@ button {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px 28px;
-    align-self: end;
+    align-self: start;
   }
 
   .desktop-menu-prices {
@@ -1214,6 +1285,15 @@ button {
     color: var(--muted);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
+  }
+
+  .desktop-menu-allergen {
+    grid-column: 2 / 8;
+    align-self: start;
+    max-width: 100%;
+    margin: 0;
+    padding: 6px 0 0;
+    font-size: 0.82rem;
   }
 
   .desktop-menu-list article {
@@ -1247,12 +1327,12 @@ button {
 
   .desktop-about-section .desktop-large-statement {
     grid-column: 2 / 8;
-    align-self: end;
+    align-self: start;
   }
 
   .desktop-about-section .copy-stack {
     grid-column: 8 / -1;
-    align-self: end;
+    align-self: start;
     max-width: 560px;
   }
 
@@ -1263,7 +1343,7 @@ button {
 
   .desktop-visit-section .visit-address {
     grid-column: 2 / 7;
-    align-self: end;
+    align-self: start;
   }
 
   .desktop-visit-section .visit-address h3,
@@ -1277,13 +1357,13 @@ button {
 
   .desktop-visit-section .desktop-hours {
     grid-column: 7 / 10;
-    align-self: end;
+    align-self: start;
   }
 
   .desktop-visit-photo {
     grid-column: 10 / -1;
     grid-row: 1 / span 2;
-    align-self: stretch;
+    align-self: start;
   }
 
   .desktop-visit-photo img {
@@ -1295,15 +1375,15 @@ button {
   }
 
   .desktop-gallery-section .desktop-section-heading {
-    grid-column: 2 / 7;
+    grid-column: 2 / 9;
     align-self: start;
   }
 
   .desktop-gallery-section .gallery-grid {
-    grid-column: 7 / -1;
+    grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 18px;
     margin: 0;
     padding: 0;
     align-self: stretch;
@@ -1315,21 +1395,24 @@ button {
   }
 
   .desktop-gallery-section .gallery-item:nth-child(1) {
-    grid-column: 1 / 5;
+    grid-column: 1 / 7;
   }
 
   .desktop-gallery-section .gallery-item:nth-child(2) {
-    grid-column: 5 / -1;
+    grid-column: 7 / -1;
   }
 
   .desktop-gallery-section .gallery-item:nth-child(3) {
-    grid-column: 2 / -1;
+    grid-column: 1 / -1;
   }
 
-  .desktop-gallery-section .gallery-item img,
-  .desktop-gallery-section .gallery-item:nth-child(2) img,
-  .desktop-gallery-section .gallery-item:nth-child(3) img {
+  .desktop-gallery-section .gallery-item:nth-child(1) img,
+  .desktop-gallery-section .gallery-item:nth-child(2) img {
     aspect-ratio: 4 / 3;
+  }
+
+  .desktop-gallery-section .gallery-item:nth-child(3) img {
+    aspect-ratio: 16 / 6;
   }
 
   .desktop-contact-section .desktop-section-heading {
@@ -1339,12 +1422,12 @@ button {
 
   .desktop-contact-section .contact-primary {
     grid-column: 2 / 7;
-    align-self: end;
+    align-self: start;
   }
 
   .desktop-contact-section .contact-actions {
     grid-column: 8 / -1;
-    align-self: center;
+    align-self: start;
   }
 }
 
