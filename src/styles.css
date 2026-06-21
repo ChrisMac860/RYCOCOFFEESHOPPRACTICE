@@ -1194,7 +1194,7 @@ button {
   .desktop-home-copy h1 {
     margin: 0;
     color: var(--teal-dark);
-    font-size: clamp(8rem, 13vw, 14.5rem);
+    font-size: clamp(8rem, 12vw, 13.6rem);
     line-height: 0.74;
     font-weight: 840;
   }
@@ -1353,6 +1353,10 @@ button {
     line-height: 0.92;
     font-weight: 800;
     text-wrap: balance;
+  }
+
+  .desktop-visit-section .visit-address h3 {
+    font-size: clamp(2.4rem, 3.45vw, 4.75rem);
   }
 
   .desktop-visit-section .desktop-hours {
