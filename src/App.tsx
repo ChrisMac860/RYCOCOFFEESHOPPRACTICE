@@ -27,9 +27,10 @@ const desktopSections = [
 const desktopRouteToSection = new Map(desktopSections.map((section) => [section.route, section.id]));
 
 function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(() =>
-    typeof window !== "undefined" && "matchMedia" in window ? window.matchMedia(desktopQuery).matches : false
-  );
+  // Always start in the mobile layout so the server-rendered HTML and the
+  // browser's first render match (the server has no viewport). The real value
+  // is read from matchMedia in the effect below, right after hydration.
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined" || !("matchMedia" in window)) {
@@ -104,12 +105,26 @@ function getOpenStatus(now: Date): { open: boolean; label: string } {
 }
 
 function OpenStatus() {
-  const [now, setNow] = useState(() => new Date());
+  // `now` is null until the component mounts in the browser. The live
+  // open/closed label depends on the current clock, which the server (build
+  // time) can't know, so we render a stable placeholder during SSR and the
+  // first client render, then fill in the real status after hydration.
+  const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
+    setNow(new Date());
     const timer = window.setInterval(() => setNow(new Date()), 60_000);
     return () => window.clearInterval(timer);
   }, []);
+
+  if (!now) {
+    return (
+      <p className="open-status">
+        <span className="open-dot" aria-hidden="true" />
+        See opening hours
+      </p>
+    );
+  }
 
   const { open, label } = getOpenStatus(now);
 
@@ -163,6 +178,17 @@ function App() {
     }
   }, [isDesktop, location.hash, location.pathname, navigate]);
 
+  useEffect(() => {
+    if (!menuOpen) {
+      return undefined;
+    }
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [menuOpen]);
+
   return (
     <div className="site-shell">
       <Header
@@ -185,7 +211,7 @@ function App() {
           </Routes>
         )}
       </main>
-      {!isDesktop && <Footer />}
+      {!isDesktop && location.pathname !== "/contact" && <Footer />}
     </div>
   );
 }

@@ -1,15 +1,26 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
+import { basename } from "./router";
 import "./styles.css";
 
-const basename = import.meta.env.BASE_URL === "/" ? undefined : import.meta.env.BASE_URL;
-
-createRoot(document.getElementById("root")!).render(
+const app = (
   <StrictMode>
     <BrowserRouter basename={basename}>
       <App />
     </BrowserRouter>
   </StrictMode>
 );
+
+const root = document.getElementById("root")!;
+
+// In production the HTML is prerendered (see scripts/prerender.mjs), so #root
+// already contains markup and we hydrate it — preserving the server-rendered
+// first paint. During `vite dev` there is no prerender, so #root is empty and
+// we render from scratch instead.
+if (root.hasChildNodes()) {
+  hydrateRoot(root, app);
+} else {
+  createRoot(root).render(app);
+}

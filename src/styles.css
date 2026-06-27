@@ -227,14 +227,18 @@ button {
   font-size: 0.74rem;
 }
 
-@media (max-width: 719px) {
+@media (max-width: 899px) {
   .site-nav {
     grid-template-columns: 1fr;
     counter-reset: navnum;
   }
 
   .site-nav.is-open {
-    max-height: 560px;
+    max-height: none;
+    height: calc(100svh - 68px - var(--safe-top));
+    overflow-y: auto;
+    align-content: start;
+    background: var(--paper);
   }
 
   .site-nav a {
@@ -299,8 +303,8 @@ button {
 .hero-statement {
   max-width: 620px;
   margin: 22px 0 0;
-  font-size: clamp(1.24rem, 7vw, 4.2rem);
-  line-height: 0.98;
+  font-size: clamp(1.2rem, 5vw, 2rem);
+  line-height: 1.08;
 }
 
 .action-row {
@@ -449,8 +453,8 @@ button {
 .visit-address h2,
 .contact-primary h2 {
   margin: 0;
-  font-size: clamp(2.35rem, 11vw, 5.8rem);
-  line-height: 0.92;
+  font-size: clamp(2.2rem, 9vw, 5rem);
+  line-height: 1;
   font-weight: 780;
   overflow-wrap: break-word;
   text-wrap: balance;
@@ -684,7 +688,9 @@ button {
 
 .visit-address h2,
 .contact-primary h2 {
-  font-size: clamp(2.1rem, 11vw, 5.8rem);
+  font-size: clamp(1.55rem, 6vw, 2.5rem);
+  line-height: 1.08;
+  text-wrap: normal;
 }
 
 .gallery-grid {
@@ -713,6 +719,11 @@ button {
 .gallery-item:nth-child(2) img,
 .gallery-item:nth-child(4) img {
   aspect-ratio: 1 / 1;
+}
+
+.gallery-item:nth-child(3) img {
+  aspect-ratio: 3 / 2;
+  object-position: center;
 }
 
 .gallery-item figcaption {
@@ -877,7 +888,7 @@ button {
   }
 }
 
-@media (min-width: 720px) {
+@media (min-width: 900px) {
   body {
     background:
       linear-gradient(90deg, rgba(16, 16, 16, 0.055) 1px, transparent 1px) 0 0 / 8.333% 100%,
@@ -978,9 +989,6 @@ button {
   }
 
   .hours-list.compact {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 18px;
     margin-top: 10px;
   }
 
@@ -1312,7 +1320,8 @@ button {
   }
 
   .desktop-about-section .desktop-large-statement p {
-    font-size: clamp(3.9rem, 5.8vw, 7rem);
+    font-size: clamp(3.2rem, 4.8vw, 5.8rem);
+    line-height: 0.92;
   }
 
   .desktop-menu-list p {
@@ -1349,14 +1358,14 @@ button {
   .desktop-visit-section .visit-address h3,
   .desktop-contact-section .contact-primary h3 {
     margin: 0;
-    font-size: clamp(2.4rem, 4vw, 5.1rem);
-    line-height: 0.92;
+    font-size: clamp(2rem, 3vw, 3.8rem);
+    line-height: 1;
     font-weight: 800;
-    text-wrap: balance;
+    text-wrap: normal;
   }
 
   .desktop-visit-section .visit-address h3 {
-    font-size: clamp(2.4rem, 3.45vw, 4.75rem);
+    font-size: clamp(2rem, 2.8vw, 3.4rem);
   }
 
   .desktop-visit-section .desktop-hours {
@@ -1450,6 +1459,22 @@ button {
 
   .menu-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hours-list.compact {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 18px;
+  }
+
+  .mono-line,
+  .desktop-photo figcaption {
+    font-size: 0.78rem;
+    color: #565a54;
+  }
+
+  .desktop-section-number {
+    font-size: 0.78rem;
   }
 }
 

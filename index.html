@@ -10,7 +10,9 @@
       name="description"
       content="RYCO Coffee House in Moy, Dungannon (Co. Tyrone). Freshly made coffee, acai bowls, smoothies, traybakes, toasties and breakfast pots. Open Wednesday to Monday."
     />
-    <!-- When moving to a custom domain, update canonical + og:url + og:image + JSON-LD url to https://rycocoffeehouse.com/ -->
+    <!-- These default URLs are for dev. The production build rewrites canonical,
+         og:url/og:image and the JSON-LD url per route from scripts/site.config.mjs
+         (see scripts/prerender.mjs), so a custom domain is a one-file change. -->
     <link rel="canonical" href="https://chrismac860.github.io/RYCOCOFFEESHOPPRACTICE/" />
 
     <!-- Favicon (uses the RYCO logo) -->
