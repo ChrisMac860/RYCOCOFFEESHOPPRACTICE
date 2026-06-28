@@ -4,7 +4,7 @@ A fast, mobile-first marketing site for **RYCO Coffee House**, a coffee shop on
 Killyman Street in Moy, Co. Tyrone. Built with React, TypeScript and Vite, and
 deployed as a fully static site to GitHub Pages.
 
-**Live:** https://chrismac860.github.io/RYCOCOFFEESHOPPRACTICE/
+**Live:** https://chrismac860.github.io/ryco-coffee-house/
 
 | Home (desktop) | Home (mobile) | Menu (mobile) |
 | --- | --- | --- |

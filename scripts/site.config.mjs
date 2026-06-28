@@ -13,7 +13,7 @@
 // Nothing else in the codebase needs editing — the app reads the base from Vite.
 
 export const siteOrigin = "https://chrismac860.github.io";
-export const basePath = "/RYCOCOFFEESHOPPRACTICE/";
+export const basePath = "/ryco-coffee-house/";
 
 // Absolute URL of the home page (origin + base), no trailing duplication.
 export const siteUrl = `${siteOrigin}${basePath}`.replace(/\/+$/, "/");

@@ -24,7 +24,7 @@ const serverEntry = resolve("dist-server/entry-server.js");
 // build). We swap every occurrence for the configured siteUrl so canonical
 // links, Open Graph URLs, the share image and the JSON-LD block all follow
 // site.config.mjs — switching to a custom domain needs no edits here.
-const TEMPLATE_HOME_URL = "https://chrismac860.github.io/RYCOCOFFEESHOPPRACTICE/";
+const TEMPLATE_HOME_URL = "https://chrismac860.github.io/ryco-coffee-house/";
 
 const { render } = await import(pathToFileURL(serverEntry).href);
 

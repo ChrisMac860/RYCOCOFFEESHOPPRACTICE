@@ -30,7 +30,7 @@ Hi [name], I'm Chris — I build websites, and I put together a small modern sit
 for RYCO Coffee House as a sample, using your public Facebook/Instagram and
 listing info so you could see it with real content rather than a blank template.
 
-You can take a look here: https://chrismac860.github.io/RYCOCOFFEESHOPPRACTICE/
+You can take a look here: https://chrismac860.github.io/ryco-coffee-house/
 
 It's mobile-first, loads fast, shows your hours and menu, and is set up to come
 up well in Google searches for coffee in Moy and to look right when you share the
